@@ -4,14 +4,24 @@
 <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
 <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
-
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 
     </head>
 
 <!------ Include the above in your HEAD tag ---------->
+ <?php 
+session_start(); 
+ If(isset($_SESSION['error'])){ 
+ ?>
+ <div class="alert alert-danger" role="alert" 	>
+  <center><strong><?php echo $_SESSION['error'] ?></strong></center>
+</div>
 
+  <?php 
+	    unset($_SESSION['error']);
+  } ?> 
 <body>
-<div class="container">
+<div class="container bg-dark">
     	<div class="row">
 			<div class="col-md-6 col-md-offset-3">
 				<div class="panel panel-login">
@@ -29,9 +39,9 @@
 					<div class="panel-body">
 						<div class="row">
 							<div class="col-lg-12">
-								<form id="login-form" action="https://phpoll.com/login/process" method="post" role="form" style="display: block;">
+								<form id="login-form" action="/MSA/login.php" method="post" role="form" style="display: block;" onsubmit="return logincheck()">
 									<div class="form-group">
-										<input type="text" name="username" id="username" tabindex="1" class="form-control" placeholder="Username" value="">
+										<input type="text" name="email" id="email" tabindex="1" class="form-control" placeholder="Email ID" value="">
 									</div>
 									<div class="form-group">
 										<input type="password" name="password" id="password" tabindex="2" class="form-control" placeholder="Password">
@@ -47,39 +57,35 @@
 											</div>
 										</div>
 									</div>
-									<div class="form-group">
-										<div class="row">
-											<div class="col-lg-12">
-												<div class="text-center">
-													<a href="https://phpoll.com/recover" tabindex="5" class="forgot-password">Forgot Password?</a>
-												</div>
-											</div>
-										</div>
-									</div>
+									
 								</form>
-								<form id="register-form" action="/MSA/registration.php" method="post" role="form" style="display: none;" onsubmit="return validateForm()">
+								<form class="needs-validation" novalidate id="register-form" action="/MSA/registration.php" method="post" role="form" style="display: none;" onsubmit="return validateForm()">
 									<div class="form-group">
-										<input type="text" name="name" id="name" tabindex="1" class="form-control" placeholder="Name" value="">
+										<input type="text" name="name" id="name" tabindex="1" class="form-control" placeholder="Name" value="" required>
 									</div>
+								
 									<div class="form-group">
-										<input type="email" name="email" id="email" tabindex="1" class="form-control" placeholder="Email Address" value="">
-									</div>
-									<div class="form-group">
-										<input type="password" name="password" id="password" tabindex="2" class="form-control" placeholder="Password">
+										
+										<input type="email" name="email" id="reg_email" tabindex="1" class="form-control" placeholder="Email Address" value="" onkeyup="checkUsername(); return false;" required/>
 									</div>
 									
-                                    <div class="form-group">
-										<input type="password" name="confirm-password" id="confirm-password" tabindex="2" class="form-control" placeholder="Confirm Password">
+									<span id="info" style="display:None">Exists/Does not exist</span>
+									<div class="form-group">
+										<input type="password" name="password" id="password" tabindex="2" class="form-control" placeholder="Password" required>
 									</div>
-                                    
+							
                                     <div class="form-group">
-										<input type="text" name="address" id="address" tabindex="2" class="form-control" placeholder="Address">
+										<input type="password" name="confirm-password" id="confirm-password" tabindex="2" class="form-control" placeholder="Confirm Password" required>
 									</div>
-									
+                              
                                     <div class="form-group">
-										<input type="number" name="contact" id="contact" tabindex="2" class="form-control" placeholder="Contact Number">
+										<input type="text" name="address" id="address" tabindex="2" class="form-control" placeholder="Address" required>
 									</div>
-									
+					
+                                    <div class="form-group">
+										<input type="number" name="contact" id="contact" tabindex="2" class="form-control" placeholder="Contact Number" required>
+									</div>
+								
 									<div class="form-group">
 										<div class="radio-inline">
 											<label><input type="radio" name="usertype" value="1">Shop Owner</label>
@@ -120,10 +126,25 @@
 
 
 
-<script >
+<script type="text/javascript">
+
+
+function logincheck()
+{
+	var email = document.forms["login-form"]["email"].value;
+	var psd = document.forms["login-form"]["password"].value;
+	if (email!="" && psd!="")
+		return true;
+	else
+		return false;
+	
+}
+
+
+
 function validateForm() {
 		var name = document.forms["register-form"]["name"].value;
-		var email = document.forms["register-form"]["email"].value;
+		var email = document.forms["register-form"]["reg_email"].value;
 		var psd = document.forms["register-form"]["password"].value;
 		var cnf = document.forms["register-form"]["confirm-password"].value;
 		var contact = document.forms["register-form"]["contact"].value;
@@ -146,7 +167,7 @@ function validateForm() {
     
 }
 $(function() {
-
+	
     $('#login-form-link').click(function(e) {
 		$("#login-form").delay(100).fadeIn(100);
  		$("#register-form").fadeOut(100);
@@ -161,18 +182,51 @@ $(function() {
 		$(this).addClass('active');
 		e.preventDefault();
 	});
+	
+	
+	
+	
+	
+	
+	
 
 });
-    
+function checkUsername()
+{
+  var eml = document.getElementById('reg_email');
 
+    var dt =eml.value;
+    $.ajax({
+                type: 'POST',
+                url: 'check.php',
+                data: {'email':dt},
+                dataType: 'json',
+                success: function(r)
+                {
+                    if(r=="1")
+                    {
+                        //Exists
+						$("#info").css('display','block')
+                        $("#info").html("Username already exists");
+                    }else{
+                        //Doesn't exist
+						$("#info").css('display','block')
+                        $("#info").html("Username available!");   
+                    }
+                }
+				
+            });
+}
 
 </script>
 
-<style
-       >
+
+
+<style>
     
     body {
     padding-top: 90px;
+	background-color:#000000;
 }
 .panel-login {
 	border-color: #ccc;
@@ -269,6 +323,18 @@ $(function() {
 	color: #fff;
 	background-color: #1CA347;
 	border-color: #1CA347;
+}
+
+#register-form .has-error .control-label,
+#register-form.has-error .help-block,
+#register-form .has-error .form-control-feedback {
+    color: #f39c12;
+}
+
+#register-form.has-success .control-label,
+#register-form .has-success .help-block,
+#register-form .has-success .form-control-feedback {
+    color: #18bc9c;
 }
 
 </style>
