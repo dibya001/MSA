@@ -20,21 +20,17 @@ if (mysqli_query($conn,$qry))
 {
 	//echo "data  inserted successfully";
 	$t=$usertype;
-	$_SESSION['email']=$row["email"];
+	$_SESSION['email']=$email;
 	$_SESSION['usertype']=$t;
 	$page=null;
-	if ($t==1)
-		$page="shopowner.php";
-			else if ($t==2)
-				$page="patient.php";
-			else if ($t==3)
-				$page="doctor.php";
-			else 
-				$page="supplier.php";
-			
-			header("Location: ".$page); 
-			exit;
-}
+	
+
+	header("Location:check_session.php");
+	exit;
+
+
+	}
+
 else
 {
 	echo "error occured";

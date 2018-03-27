@@ -3,14 +3,20 @@
 
 <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
-<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+<scriptr src="//code.jquery.com/jquery-1.11.1.min.js"></script>
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 
     </head>
 
 <!------ Include the above in your HEAD tag ---------->
  <?php 
+
 session_start(); 
+
+if(isset($_SESSION['email']))
+	header('Location:check_session.php');
+
+
  If(isset($_SESSION['error'])){ 
  ?>
  <div class="alert alert-danger" role="alert" 	>
@@ -59,7 +65,7 @@ session_start();
 									</div>
 									
 								</form>
-								<form class="needs-validation" novalidate id="register-form" action="/MSA/registration.php" method="post" role="form" style="display: none;" onsubmit="return validateForm()">
+								<form  id="register-form" action="/MSA/registration.php" method="post" role="form" style="display: none;" onsubmit="return validateForm()">
 									<div class="form-group">
 										<input type="text" name="name" id="name" tabindex="1" class="form-control" placeholder="Name" value="" required>
 									</div>
@@ -69,7 +75,7 @@ session_start();
 										<input type="email" name="email" id="reg_email" tabindex="1" class="form-control" placeholder="Email Address" value="" onkeyup="checkUsername(); return false;" required/>
 									</div>
 									
-									<span id="info" style="display:None">Exists/Does not exist</span>
+									<span id="info"></span>
 									<div class="form-group">
 										<input type="password" name="password" id="password" tabindex="2" class="form-control" placeholder="Password" required>
 									</div>
@@ -206,11 +212,11 @@ function checkUsername()
                     if(r=="1")
                     {
                         //Exists
-						$("#info").css('display','block')
+						//$("#info").css('display','block')
                         $("#info").html("Username already exists");
                     }else{
                         //Doesn't exist
-						$("#info").css('display','block')
+						//$("#info").css('display','block')
                         $("#info").html("Username available!");   
                     }
                 }

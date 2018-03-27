@@ -8,7 +8,7 @@ $email=$_POST["email"];
 //$qry="insert into users values('','".$email."','".$password."','".$name."',".$usertype.",'".$address."','".$contact."','".$date."')";
 
 
-$qry="SELECT * from `users` where `email`= '".$email."' and `password`= '".$password."'";
+$qry="SELECT * from `users` where `user_id`= '".$email."' and `password`= '".$password."'";
 //echo $qry;
 $r=mysqli_query($conn,$qry);
 
@@ -16,22 +16,15 @@ if ($r->num_rows > 0)
 {
     while($row = $r->fetch_assoc())
 		{
-			$t=$row["usertype"];
-			$_SESSION['email']=$row["email"];
+
+			$t=$row["type"];
+			$_SESSION['email']=$row["user_id"];
 			$_SESSION['usertype']=$t;
-			$page=null;
-			if ($t==1)
-			$page="shopowner.php";
-			else if ($t==2)
-				$page="patient.php";
-			else if ($t==3)
-				$page="doctor.php";
-			else 
-				$page="supplier.php";
-			
-			header("Location: ".$page); 
+
+			header("Location:check_session.php");
 			exit;
-			//echo $row["usertype"];
+
+
 		}
 } 
 else 
@@ -40,6 +33,5 @@ else
 		header("Location: Index.php"); 
 		exit;
 }
-$conn->close();
 
 ?>
