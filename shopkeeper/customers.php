@@ -12,12 +12,13 @@ $email=$_SESSION["email"];
 ?>
 <head>
 
-<link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
-<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
-<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-
-</head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+ 
+ </head>
 
 <body>
 	
@@ -36,9 +37,31 @@ $email=$_SESSION["email"];
       	
     				</ul>
 
-           <a href="/msa/logout.php"> <button class="btn btn-danger navbar-btn pull-right">Logout</button> </a>
+            <button  type="button" class="btn btn-danger navbar-btn pull-right" data-toggle="modal" data-target="#myModal">Logout</button> 
     			</div>
 	</nav>
+	
+	
+<div id="myModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Logout Confirmation</h4>
+      </div>
+      <div class="modal-body">
+        <p>Are you surely want to logout?.</p>
+      </div>
+      <div class="modal-footer">
+       <a href="/msa/logout.php"> <button type="button" class="btn btn-default" >Confirm</button></a>
+		<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+      </div>
+    </div>
+
+  </div>
+</div>	
 
 <input class="form-control" id="myInput" type="text" placeholder="Search..">
   <br>

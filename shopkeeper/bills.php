@@ -31,9 +31,30 @@ header('Location:/msa/index.php');
       	
     				</ul>
 
-           <a href="/msa/logout.php"> <button class="btn btn-danger navbar-btn pull-right">Logout</button> </a>
-
-  				</div>
+             <button  type="button" class="btn btn-danger navbar-btn pull-right" data-toggle="modal" data-target="#myModal">Logout</button> 
+    			</div>
 	</nav>
+	
+	
+<div id="myModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Logout Confirmation</h4>
+      </div>
+      <div class="modal-body">
+        <p>Are you surely want to logout?.</p>
+      </div>
+      <div class="modal-footer">
+       <a href="/msa/logout.php"> <button type="button" class="btn btn-default" >Confirm</button></a>
+		<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+      </div>
+    </div>
+
+  </div>
+</div>	
 
 </body>
