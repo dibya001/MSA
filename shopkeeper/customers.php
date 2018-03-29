@@ -12,6 +12,7 @@ $email=$_SESSION["email"];
 ?>
 <head>
 <meta charset="utf-8">
+
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -62,6 +63,39 @@ $email=$_SESSION["email"];
   </div>
 </div>	
 
+
+
+
+
+
+
+<div id="myModal2" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Logout Confirmation</h4>
+      </div>
+      <div class="modal-body">
+        <p>Are you surely want to logout?.</p>
+      </div>
+      <div class="modal-footer">
+       <a href="/msa/logout.php"> <button type="button" class="btn btn-default" >Confirm</button></a>
+		<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+
+
+
+
+
 <input class="form-control" id="myInput" type="text" placeholder="Search..">
   <br>
   <script>
@@ -111,7 +145,7 @@ while($p = mysqli_fetch_assoc($r)) {
         <td><?php echo $p['contact_no'] ?></td>
         <td><?php echo $p['address'] ?></td>
           <td><?php echo $p['credit'] ?></td>
-          <td><a href="patientDetails.php?patient_id=<?php echo $p['patient_id']; ?> "><input type="button" class="btn btn-primary pull-right" value="View" ></a>
+          <td><input type="button" id= <?php echo $var ?> class="btn btn-primary pull-right" value="View"  onclick="alert(this.id)" >
           </td>
       
 
@@ -136,3 +170,6 @@ while($p = mysqli_fetch_assoc($r)) {
 
 
 </body>
+<script>
+
+</script>

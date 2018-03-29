@@ -1,8 +1,8 @@
 <?php
 require('../connect.php');
-$req = mysqli_real_escape_string($connect, $_POST["query"]);
+$req = mysqli_real_escape_string($conn, $_POST["query"]);
 
-$qry = "SELECT * FROM users WHERE name LIKE '%".$request."%'";
+$qry = "SELECT * FROM medicine WHERE name LIKE '%".$req."%'";
 
 $r = mysqli_query($conn, $qry);
 

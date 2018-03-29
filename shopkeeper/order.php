@@ -60,12 +60,17 @@ $email=$_SESSION["email"];
 
   </div>
 </div>	
-
+ <form class="form-inline">
  <div class="form-group">
-	<input type="text" name="meds" id="meds" tabindex="1" class="form-control input-lg" placeholder="Enter medicine name" autocomplete="on">
+ <div class="col-sm-6">
+	<input type="text" name="meds" id="meds" tabindex="1" class="form-control input-sm" placeholder="Enter medicine name" autocomplete="on">
+	 <input type="text" name="quantity" id="qty" tabindex="1" placeholder="Quantity" >  
+<button type="button" class="btn btn-primary" id="fetch" onclick="fetchmeds()">Go</button>
+	
 </div>
-   
- 
+
+ </div>
+ </form>
 </body>
 <script type="text/javascript">
 $(document).ready(function(){
@@ -75,7 +80,7 @@ $(document).ready(function(){
   source: function(query, result)
   {
    $.ajax({
-    url:"fetch_customer.php",
+    url:"fetch_meds.php",
     method:"POST",
     data:{query:query},
     dataType:"json",
@@ -90,4 +95,23 @@ $(document).ready(function(){
  });
  
 });
+
+
+function fetchmeds()
+{
+	med_name=$('#meds').val();
+	alert(med_name);
+	
+	
+}
 </script>
+
+<style>
+
+.dropdown-menu {
+ position:relative;
+ width:100%;
+ top: 0px !important;
+    left: 0px !important;
+}
+</style>

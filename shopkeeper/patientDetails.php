@@ -102,7 +102,7 @@ while($p = mysqli_fetch_assoc($r)) {
         <td><?php echo $p['contact_no'] ?></td>
         <td><?php echo $p['address'] ?></td>
           <td><?php echo $p['credit'] ?></td>
-          <td><a href="patientDetails.php?patient_id=<?php echo $p['patient_id']; ?> "><input type="button" class="btn btn-primary pull-right" value="View" ></a>
+          <td><input type="button" id=<?php echo $var;?> class="btn btn-primary pull-right" value="View" >
           </td>
       
 
