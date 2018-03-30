@@ -63,8 +63,9 @@ $email=$_SESSION["email"];
  <form class="form-inline">
  <div class="form-group">
  <div class="col-sm-6">
-	<input type="text" name="meds" id="meds" tabindex="1" class="form-control input-sm" placeholder="Enter medicine name" autocomplete="on">
-	 <input type="text" name="quantity" id="qty" tabindex="1" placeholder="Quantity" >  
+	<input type="text" name="meds" id="meds" tabindex="1" class="form-control input-sm" placeholder="Enter medicine name" autocomplete="off">
+	 <input type="text" name="quantity" id="qty" tabindex="1" placeholder="Quantity" >
+     <input type="text" name="sups" id="sups" tabindex="1" class="form-control input-sm" placeholder="Enter supplier name" autocomplete="off">
 <button type="button" class="btn btn-primary" id="fetch" onclick="fetchmeds()">Go</button>
 	
 </div>
@@ -73,6 +74,8 @@ $email=$_SESSION["email"];
  </form>
 </body>
 <script type="text/javascript">
+var sendobj={};
+var pd=-1;
 $(document).ready(function(){
  
  $('#meds').typeahead({
@@ -86,7 +89,10 @@ $(document).ready(function(){
     dataType:"json",
     success:function(data)
     {
+      //var d2=JSON.parse(data)
+      //alert(d2);
      result($.map(data, function(item){
+      //pd=d2.product_id
       return item;
      }));
     }
@@ -99,11 +105,59 @@ $(document).ready(function(){
 
 function fetchmeds()
 {
-	med_name=$('#meds').val();
-	alert(med_name);
-	
+	var med_name=$('#meds').val();
+  var sup_name=$('#sups').val();
+	//alert(med_name);
+	var qt=$('#qty').val();
+  if (qt=="" && pd!=-1 ){
+    alert('Please Fill Some Quantity');
+  }
+  else
+  {
+
+    jsonarr=[];
+    obj={};
+    obj["pid"]=med_name;
+    obj["qty"]=qt;
+    jsonarr.push(obj);
+    sendobj["meds"]=JSON.stringify(jsonarr);
+    sendobj["sup"]=sup_name;
+    sendobj["status"]="0";
+     var sendobj2=JSON.stringify(sendobj);
+    //alert(sendobj2);
+    $.ajax({
+    url:"orderplace.php",
+    method:"POST",
+    data:{query:sendobj2},
+    dataType:"json",
+    success:function(data)
+    {
+      alert('Order Placed Successfully');
+    }
+   })
+
+  }
+
 	
 }
+ $('#sups').typeahead({
+  
+  source: function(query, result)
+  {
+   $.ajax({
+    url:"fetch_sups.php",
+    method:"POST",
+    data:{query:query},
+    dataType:"json",
+    success:function(data)
+    {
+     result($.map(data, function(item){
+      return item;
+     }));
+    }
+   })
+  }
+ });
 </script>
 
 <style>

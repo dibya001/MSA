@@ -203,6 +203,7 @@ $("#order").click(function()  {
 
 		}
    sendobj["meds"]=JSON.stringify(jsonarr);
+   sendobj["status"]="1";
     //sendobj.meds=jsonarr;
 		//console.log(jsonarr);
 		if (selected.length == 0){
