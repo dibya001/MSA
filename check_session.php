@@ -8,11 +8,11 @@ $t=$_SESSION['usertype'];
 
 $page=null;
 			if ($t==1)
-			$page="shopkeeper/shopowner.php";
+			$page="shopkeeper/index.php";
 			else if ($t==2)
 				$page="patient/index.php";
 			else if ($t==3)
-				$page="doctor.php";
+				$page="doctor/index.php";
 			else if($t==4)
 				$page="supplier.php";
 			

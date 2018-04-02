@@ -26,7 +26,7 @@ $email=$_SESSION["email"];
       			<a class="navbar-brand" href="shopowner.php">Shop Name</a>
     			</div>
     				<ul class="nav navbar-nav">
-      					<li><a href="shopowner.php">Home</a></li>
+      					<li><a href="index.php">Home</a></li>
      					  <li ><a href="stock.php">Stock</a></li>
       					<li><a href="customers.php">Customer</a></li>
       					<li><a href="doctors.php">Doctors</a></li>
@@ -60,23 +60,68 @@ $email=$_SESSION["email"];
 
   </div>
 </div>	
- <form class="form-inline">
+ <form class="form" id="myForm">
  <div class="form-group">
- <div class="col-sm-6">
+ <div class="col-md-6 col-md-offset-3">
 	<input type="text" name="meds" id="meds" tabindex="1" class="form-control input-sm" placeholder="Enter medicine name" autocomplete="off">
-	 <input type="text" name="quantity" id="qty" tabindex="1" placeholder="Quantity" >
+  <br>
+	 <input type="text" name="quantity" id="qty" tabindex="1" class="form-control input-sm"  placeholder="Quantity" >
+   <br>
      <input type="text" name="sups" id="sups" tabindex="1" class="form-control input-sm" placeholder="Enter supplier name" autocomplete="off">
-<button type="button" class="btn btn-primary" id="fetch" onclick="fetchmeds()">Go</button>
-	
-</div>
+     <br>
+  
+        <button type="button" tabindex="1" class=" text-center mt-4 indigo btn btn-primary center-block" id="addrow">Go</button>
+    </div>
+
 
  </div>
  </form>
+<br/>
+<table id="olist" class="table table-bordered table-striped table-hover" >
+  <thead  >
+  <th class="text-center">Medicine Id</th>
+    <th class="text-center">Medicine Name</th>
+    <th class="text-center">Quantity</th>
+
+  </thead>
+  <tbody id="o_body"></tbody>
+</table>
+
+<div>
+
+<button type="button" tabindex="1" class=" text-center mt-4 indigo btn btn-primary center-block" id="fetch" onclick="fetchmeds()">Place Order</button>
+ </div>
+
+                      
+                      
 </body>
 <script type="text/javascript">
+
+ var medicine_id="a";
 var sendobj={};
-var pd=-1;
+//var pd=-1;
 $(document).ready(function(){
+  var i=1;
+  $("#addrow").click(function(){
+  //alert('hi');
+    var med_name=$('#meds').val();
+    //var words = str.split(" ");
+    //var med_name=words[1];
+    var qt=$('#qty').val();
+    if (qt=="")
+    {
+      alert('Please Fill Some Quantity');
+    }
+    else
+    {
+      $('#olist').append('<tr id="addr'+(i)+'"></tr>');
+      $('#addr'+i).html("<td>"+medicine_id+"</td><td>"+med_name+ "</td><td>"+qt+ "</td>");
+      i++; 
+      var form = document.getElementById("myForm");
+      form.reset();
+    }
+
+  });
  
  $('#meds').typeahead({
 	
@@ -93,12 +138,19 @@ $(document).ready(function(){
       //alert(d2);
      result($.map(data, function(item){
       //pd=d2.product_id
+      //medicine_id=item['name']
       return item;
      }));
     }
    })
   }
+
  });
+
+$('#meds').change(function() {
+  var current = $('#meds').typeahead("getActive");
+   medicine_id=current['product_id'];
+});
  
 });
 
@@ -106,24 +158,23 @@ $(document).ready(function(){
 function fetchmeds()
 {
 	var med_name=$('#meds').val();
-  var sup_name=$('#sups').val();
-	//alert(med_name);
+  var sup_name=$('#sups').val()
 	var qt=$('#qty').val();
-  if (qt=="" && pd!=-1 ){
-    alert('Please Fill Some Quantity');
-  }
-  else
+  jsonarr=[]
+  var table = document.getElementById("olist");
+  for (var i = 1, row; row = table.rows[i]; i++) 
   {
-
-    jsonarr=[];
-    obj={};
-    obj["pid"]=med_name;
-    obj["qty"]=qt;
-    jsonarr.push(obj);
-    sendobj["meds"]=JSON.stringify(jsonarr);
-    sendobj["sup"]=sup_name;
-    sendobj["status"]="0";
-     var sendobj2=JSON.stringify(sendobj);
+      pd=table.rows[i].cells[0].innerHTML;
+      qt=table.rows[i].cells[2].innerHTML;
+      obj={};
+      obj["pid"]=pd; 
+      obj["qty"]=qt;
+      jsonarr.push(obj);  
+  }
+   sendobj["meds"]=JSON.stringify(jsonarr);
+   sendobj["status"]="1";
+   sendobj["sup"]="for_testing";
+   var sendobj2=JSON.stringify(sendobj);
     //alert(sendobj2);
     $.ajax({
     url:"orderplace.php",
@@ -135,8 +186,6 @@ function fetchmeds()
       alert('Order Placed Successfully');
     }
    })
-
-  }
 
 	
 }

@@ -1,10 +1,9 @@
 <?php
+require('../connect.php');
 session_start();
 if(!isset($_SESSION['email'])){
 header('Location:/msa/index.php');
-
 }
-
 ?>
 
 <head>
@@ -13,6 +12,7 @@ header('Location:/msa/index.php');
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script src="../js/t2.js"></script>
 
 </head>
 
@@ -38,7 +38,6 @@ header('Location:/msa/index.php');
     			</div>
 	</nav>
 	
-	
 <div id="myModal" class="modal fade" role="dialog">
   <div class="modal-dialog">
 
@@ -60,4 +59,34 @@ header('Location:/msa/index.php');
   </div>
 </div>	
 
+
+  <input type="text" name="name" id="p_name" tabindex="1" class=" form-control input-sm" placeholder="Enter medicine name" autocomplete="off">
+
+  <input type="text" name="p_address" id="p_address" tabindex="1" class="form-control input-sm" placeholder="Enter medicine name" autocomplete="off">
+
+
 </body>
+
+
+
+<script type="text/javascript">
+var sendobj={};
+var pd=-1;
+$(document).ready(function(){
+ 
+  name: 'name',
+ $('#p_name').typeahead({
+  
+   remote: {
+      url: 'ajaxphp/fetch_customer_details.php?q=%QUERY',
+  dataType: 'json',
+      cache: false,
+      filter: function(parsedResponse){
+          return (parsedResponse.length > 1) ? parsedResponse[1] : [] ;
+      }
+    }
+  });
+
+});
+
+</script>

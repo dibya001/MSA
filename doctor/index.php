@@ -12,12 +12,11 @@ $email=$_SESSION["email"];
 ?>
 <head>
 <meta charset="utf-8">
-
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-
+<script src="../js/typeahead.js"></script>
 </head>
 
 <body>
@@ -25,19 +24,16 @@ $email=$_SESSION["email"];
 	<nav class="navbar navbar-inverse">
   		<div class="container-fluid">
    			 <div class="navbar-header">
-      			<a class="navbar-brand" href="shopowner.php">Shop Name</a>
+      
     			</div>
     				<ul class="nav navbar-nav">
-      					<li><a href="index.php">Home</a></li>
-     					  <li><a href="stock.php">Stock</a></li>
-      					<li class="active" ><a href="#">Customer</a></li>
+      					<li class="active" ><a href="#">Purchases</a></li>
       					<li><a href="doctors.php">Doctors</a></li>
-      					<li><a href="bills.php">Bills</a></li>
-      					<li><a href="Prescriptions.php">Prescriptions</a></li>
-						<li><a href="order.php">Order</a></li>
+      					<li><a href="credits.php">Credits</a></li>
+      		
     				</ul>
 
-            <button  type="button" class="btn btn-danger navbar-btn pull-right" data-toggle="modal" data-target="#myModal">Logout</button> 
+             <button  type="button" class="btn btn-danger navbar-btn pull-right" data-toggle="modal" data-target="#myModal">Logout</button> 
     			</div>
 	</nav>
 	
@@ -62,71 +58,39 @@ $email=$_SESSION["email"];
 
   </div>
 </div>	
-
-
-
-
-
-
-
-<div id="myModal2" class="modal fade" role="dialog">
-  <div class="modal-dialog">
-
-    <!-- Modal content-->
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title">Logout Confirmation</h4>
-      </div>
-      <div class="modal-body">
-        <p>Are you surely want to logout?.</p>
-      </div>
-      <div class="modal-footer">
-       <a href="/msa/logout.php"> <button type="button" class="btn btn-default" >Confirm</button></a>
-		<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-      </div>
-    </div>
-
-  </div>
-</div>
-
-
-
-
-
-
-
 <input class="form-control" id="myInput" type="text" placeholder="Search..">
   <br>
   <script>
 $(document).ready(function(){
   $("#myInput").on("keyup", function() {
     var value = $(this).val().toLowerCase();
-    $("#tbody tr").filter(function() {
+    $("#myTable tr").filter(function() {
       $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
     });
   });
 });
 </script>
 
+
 <table class="table" id="myTable">
     <thead>
       <tr>
 
         <th>Name</th>
-        <th>Email</th>
         <th>Contact No</th>
         <th>Address</th>
-        <th>Credit</th>
+        <th>Date</th>
+		<th>Total</th>
+		<th>Paid</th>
         <th></th>
         
         
       </tr>
     </thead>
-    <tbody id="tbody">
+    <tbody>
 <?php
 
-$qry="SELECT u.name,p.patient_id,u.contact_no,u.address ,( SUM(p.total)-SUM(p.paid) )as credit from patient p , users u where p.shop_id= '$email' and u.user_id=p.patient_id group by p.patient_id";
+$qry="SELECT u.name,u.contact_no,u.address ,b.date,b.total,b.paid from bill b , users u where b.patient_id= '$email' and u.user_id=b.shop_id";
 
 
 $r=mysqli_query($conn,$qry);
@@ -141,11 +105,13 @@ while($p = mysqli_fetch_assoc($r)) {
     ?>
           <tr class="active">
         <td><?php echo $p['name'] ?></td>    
-        <td><?php echo $p['patient_id'] ?></td>
+      
         <td><?php echo $p['contact_no'] ?></td>
         <td><?php echo $p['address'] ?></td>
-          <td><?php echo $p['credit'] ?></td>
-          <td><input type="button" id= <?php echo $var ?> class="btn btn-primary pull-right" value="View"  onclick="alert(this.id)" >
+          <td><?php echo $p['date'] ?></td>
+		    <td><?php echo $p['total'] ?></td>
+			  <td><?php echo $p['paid'] ?></td>
+          <td><a href="patientDetails.php?patient_id=<?php echo $p['patient_id']; ?> "><input type="button" class="btn btn-primary pull-right" value="View" ></a>
           </td>
       
 
@@ -170,6 +136,3 @@ while($p = mysqli_fetch_assoc($r)) {
 
 
 </body>
-<script>
-
-</script>

@@ -26,7 +26,7 @@ $email=$_SESSION["email"];
       			<a class="navbar-brand" href="shopowner.php">Shop Name</a>
     			</div>
     				<ul class="nav navbar-nav">
-      					<li><a href="shopowner.php">Home</a></li>
+      					<li><a href="index.php">Home</a></li>
      					  <li class="active"><a href="#">Stock</a></li>
       					<li><a href="customers.php">Customer</a></li>
       					<li><a href="doctors.php">Doctors</a></li>
