@@ -12,27 +12,38 @@ $email=$_SESSION["email"];
 <head>
 <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-<script src="../js/typeahead.js"></script>
+
+ <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" >
+ <link href="typeaheadjs.css" rel="stylesheet">
+
+   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
+  <script src="../js/typeahead.js"></script>
+<!-- Material Design Bootstrap -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.5.0/css/mdb.min.css" rel="stylesheet">
+<!-- MDB core JavaScript -->
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.5.0/js/mdb.min.js"></script>
+
+
 </head>
 
 <body>
 	
-	<nav class="navbar navbar-inverse">
+	<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
   		<div class="container-fluid">
    			 <div class="navbar-header">
       			<a class="navbar-brand" href="shopowner.php">Shop Name</a>
     			</div>
-    				<ul class="nav navbar-nav">
-      					<li><a href="index.php">Home</a></li>
-     					  <li ><a href="stock.php">Stock</a></li>
-      					<li><a href="customers.php">Customer</a></li>
-      					<li><a href="doctors.php">Doctors</a></li>
-      					<li><a href="bills.php">Bills</a></li>
-      					<li><a href="Prescriptions.php">Prescriptions</a></li>
-						<li class="active"><a href="#">Order</a></li>
+    				<ul class="navbar-nav mr-auto">
+      					<li  class="nav-item"><a class="nav-link"  href="index.php">Home</a></li>
+     					  <li  class="nav-item"><a class="nav-link"  href="stock.php">Stock</a></li>
+      					<li class="nav-item"><a class="nav-link"  href="customers.php">Customer</a></li>
+      					<li class="nav-item"><a class="nav-link" href="doctors.php">Doctors</a></li>
+      					<li class="nav-item"><a class="nav-link" href="bills.php">Bills</a></li>
+      					<li class="nav-item"><a class="nav-link" href="Prescriptions.php">Prescriptions</a></li>
+						<li class=" nav-item active"><a class="nav-link"  href="#">Order</a></li>
     				</ul>
 
             <button  type="button" class="btn btn-danger navbar-btn pull-right" data-toggle="modal" data-target="#myModal">Logout</button> 
@@ -40,14 +51,17 @@ $email=$_SESSION["email"];
 	</nav>
 	
 	
-<div id="myModal" class="modal fade" role="dialog">
-  <div class="modal-dialog">
+<div id="myModal" class="modal fade" role="dialog" tabindex="-1">
+  <div class="modal-dialog" role="document">
 
     <!-- Modal content-->
     <div class="modal-content">
       <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <!--<button type="button" class="close" data-dismiss="modal">&times;</button>-->
         <h4 class="modal-title">Logout Confirmation</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
       </div>
       <div class="modal-body">
         <p>Are you surely want to logout?.</p>
@@ -60,25 +74,34 @@ $email=$_SESSION["email"];
 
   </div>
 </div>	
- <form class="form" id="myForm">
- <div class="form-group">
- <div class="col-md-6 col-md-offset-3">
-	<input type="text" name="meds" id="meds" tabindex="1" class="form-control input-sm" placeholder="Enter medicine name" autocomplete="off">
-  <br>
-	 <input type="text" name="quantity" id="qty" tabindex="1" class="form-control input-sm"  placeholder="Quantity" >
-   <br>
-     <input type="text" name="sups" id="sups" tabindex="1" class="form-control input-sm" placeholder="Enter supplier name" autocomplete="off">
-     <br>
-  
-        <button type="button" tabindex="1" class=" text-center mt-4 indigo btn btn-primary center-block" id="addrow">Go</button>
-    </div>
 
+<!-- Card -->
+<div class="card m-3 mx-xl-5 w-50 text-center" >
+  <!-- Card body -->
+  <div class="card-body">
+  <h3 class="card-title">Add Items</h5>
+     <form class="form" id="myForm">
+        <div class="form-group">
+          <div>
+            <input type="text" name="meds" id="meds" tabindex="1" class="form-control input-sm" placeholder="Enter medicine name" autocomplete="off">
+            <br>
+            <input type="text" name="quantity" id="qty" tabindex="1" class="form-control input-sm"  placeholder="Quantity" >
+            <br>
+            <input type="text" name="sups" id="sups" tabindex="1" class="form-control input-sm" placeholder="Enter supplier name" autocomplete="off">
+            <br>
+            <button type="button" tabindex="1" class=" text-center mt-4 indigo btn btn-primary center-block" id="addrow">Go</button>
+          </div>
+        </div>
+      </form>
+  </div>
+  <!-- Card body -->
 
- </div>
- </form>
+</div>
+<!-- Card -->
+                      
 <br/>
 <table id="olist" class="table table-bordered table-striped table-hover" >
-  <thead  >
+  <thead class="thead-dark"  >
   <th class="text-center">Medicine Id</th>
     <th class="text-center">Medicine Name</th>
     <th class="text-center">Quantity</th>
@@ -87,9 +110,9 @@ $email=$_SESSION["email"];
   <tbody id="o_body"></tbody>
 </table>
 
-<div>
+<div class="text-center"> 
 
-<button type="button" tabindex="1" class=" text-center mt-4 indigo btn btn-primary center-block" id="fetch" onclick="fetchmeds()">Place Order</button>
+<button type="button" tabindex="1" class="btn btn-primary"  id="fetch" onclick="fetchmeds()">Place Order</button>
  </div>
 
                       

@@ -8,37 +8,45 @@ header('Location:/msa/index.php');
 $email=$_SESSION["email"];
 ?>
 
-
 <head>
 <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+ <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" >
+ <link href="typeaheadjs.css" rel="stylesheet">
+
+   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
   <script src="../js/typeahead.js"></script>
+<!-- Material Design Bootstrap -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.5.0/css/mdb.min.css" rel="stylesheet">
+<!-- MDB core JavaScript -->
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.5.0/js/mdb.min.js"></script>
+
 
 </head>
 <body>
 	
-	<nav class="navbar navbar-inverse">
-  		<div class="container-fluid">
-   			 <div class="navbar-header">
-      			<a class="navbar-brand" href="shopowner.php">Shop Name</a>
-    			</div>
-    				<ul class="nav navbar-nav">
-      					<li><a href="index.php">Home</a></li>
-     					  <li class="active"><a href="#">Stock</a></li>
-      					<li><a href="customers.php">Customer</a></li>
-      					<li><a href="doctors.php">Doctors</a></li>
-      					<li><a href="bills.php">Bills</a></li>
-      					<li><a href="Prescriptions.php">Prescriptions</a></li>
-						<li><a href="order.php">Order</a></li>
-      	
-    				</ul>
+	<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <div class="container-fluid">
+         <div class="navbar-header">
+            <a class="navbar-brand" href="shopowner.php">Shop Name</a>
+          </div>
+            <ul class="navbar-nav mr-auto">
+                <li  class="nav-item"><a class="nav-link"  href="index.php">Home</a></li>
+                <li  class="nav-item active"><a class="nav-link"  href="#">Stock</a></li>
+                <li class="nav-item"><a class="nav-link"  href="customers.php">Customer</a></li>
+                <li class="nav-item"><a class="nav-link" href="doctors.php">Doctors</a></li>
+                <li class="nav-item"><a class="nav-link" href="bills.php">Bills</a></li>
+                <li class="nav-item"><a class="nav-link" href="Prescriptions.php">Prescriptions</a></li>
+            <li class=" nav-item "><a class="nav-link"  href="order.php">Order</a></li>
+            </ul>
 
             <button  type="button" class="btn btn-danger navbar-btn pull-right" data-toggle="modal" data-target="#myModal">Logout</button> 
-    			</div>
-	</nav>
+          </div>
+  </nav>
 	
 	
 <div id="myModal" class="modal fade" role="dialog">
@@ -47,8 +55,11 @@ $email=$_SESSION["email"];
     <!-- Modal content-->
     <div class="modal-content">
       <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <!--<button type="button" class="close" data-dismiss="modal">&times;</button>-->
         <h4 class="modal-title">Logout Confirmation</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
       </div>
       <div class="modal-body">
         <p>Are you surely want to logout?.</p>
@@ -70,8 +81,11 @@ $email=$_SESSION["email"];
     <!-- Modal content-->
     <div class="modal-content">
       <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <!--<button type="button" class="close" data-dismiss="modal">&times;</button>-->
         <h4 class="modal-title">Order Confirmation</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
       </div>
       <div class="modal-body" id="modal-body">
         <p id="txt">Please Select Some items</p>
@@ -90,7 +104,7 @@ $email=$_SESSION["email"];
   </div>
 </div>	
 
-
+<br>
 
 <input class="form-control" id="myInput" type="text" placeholder="Search..">
   <br>
@@ -103,8 +117,8 @@ $email=$_SESSION["email"];
     });
   });
 </script>
-<table class="table" id="myTable">
-    <thead>
+<table class="table table-bordered table-striped table-hover" id="myTable" >
+  <thead>
       <tr>
 
         <th>Product Id</th>
