@@ -105,7 +105,7 @@ $email=$_SESSION["email"];
   <th class="text-center">Medicine Id</th>
     <th class="text-center">Medicine Name</th>
     <th class="text-center">Quantity</th>
-
+    <th></th>
   </thead>
   <tbody id="o_body"></tbody>
 </table>
@@ -138,7 +138,7 @@ $(document).ready(function(){
     else
     {
       $('#olist').append('<tr id="addr'+(i)+'"></tr>');
-      $('#addr'+i).html("<td>"+medicine_id+"</td><td>"+med_name+ "</td><td>"+qt+ "</td>");
+      $('#addr'+i).html('<td>'+medicine_id+'</td><td>'+med_name+ '</td><td>'+qt+ '</td><td> <button type="button" id="b'+(i) +'"class="btn btn-default btn-sm"><span class="glyphicon glyphicon-remove"></span> Remove</button></td>');
       i++; 
       var form = document.getElementById("myForm");
       form.reset();
@@ -174,6 +174,14 @@ $('#meds').change(function() {
   var current = $('#meds').typeahead("getActive");
    medicine_id=current['product_id'];
 });
+
+//important
+$("#olist").on('click','button',function(){
+  var id=this.id;
+   $(this).closest('tr').remove();
+
+
+});
  
 });
 
@@ -185,6 +193,11 @@ function fetchmeds()
 	var qt=$('#qty').val();
   jsonarr=[]
   var table = document.getElementById("olist");
+  if(table.rows.length<=1)
+  {
+    alert('Please Add Some Items');
+    return;
+  }
   for (var i = 1, row; row = table.rows[i]; i++) 
   {
       pd=table.rows[i].cells[0].innerHTML;
@@ -208,7 +221,7 @@ function fetchmeds()
     {
       alert('Order Placed Successfully');
     }
-   })
+   });
 
 	
 }
