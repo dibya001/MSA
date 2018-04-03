@@ -33,7 +33,10 @@ $email=$_SESSION["email"];
 <body>
 	
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-      <div class="container-fluid">
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
          <div class="navbar-header">
             <a class="navbar-brand" href="shopowner.php">Shop Name</a>
           </div>
@@ -112,7 +115,7 @@ $email=$_SESSION["email"];
 
 
 <br>
-<input class="form-control" id="myInput" type="text" placeholder="Search..">
+<input class="form-control mx-auto w-50 text-center" id="myInput" type="text" placeholder="Search..">
   <br>
   <script>
 $(document).ready(function(){

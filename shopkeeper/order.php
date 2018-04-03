@@ -32,7 +32,10 @@ $email=$_SESSION["email"];
 <body>
 	
 	<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-  		<div class="container-fluid">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+  		<div class="collapse navbar-collapse" id="navbarSupportedContent">
    			 <div class="navbar-header">
       			<a class="navbar-brand" href="shopowner.php">Shop Name</a>
     			</div>
@@ -76,7 +79,7 @@ $email=$_SESSION["email"];
 </div>	
 
 <!-- Card -->
-<div class="card m-3 mx-xl-5 w-50 text-center" >
+<div class="card mx-auto w-50 text-center" >
   <!-- Card body -->
   <div class="card-body">
   <h3 class="card-title">Add Items</h5>
@@ -119,7 +122,6 @@ $email=$_SESSION["email"];
                       
 </body>
 <script type="text/javascript">
-
  var medicine_id="a";
 var sendobj={};
 //var pd=-1;
