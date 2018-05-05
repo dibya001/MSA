@@ -9,6 +9,7 @@ if ($r->num_rows > 0)
 {
      echo '1';
 //changes in code
+//changes from 2nd branch
 }
 else
 {
