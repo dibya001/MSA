@@ -1,3 +1,4 @@
+
 <?php
 require_once 'connect.php';
 $email = $_POST['email'];
@@ -7,6 +8,7 @@ $r=mysqli_query($conn,$qry);
 if ($r->num_rows > 0) 
 {
      echo '1';
+//changes in code
 }
 else
 {
